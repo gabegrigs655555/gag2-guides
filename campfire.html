@@ -1,124 +1,45 @@
 <!DOCTYPE html>
 <html>
-
 <head>
 <title>Campfire Event Guide</title>
-
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <style>
-
-body{
-    background:#121212;
-    color:white;
-    font-family:Arial,sans-serif;
-    margin:0;
-}
-
-.header{
-    background:#222;
-    text-align:center;
-    padding:30px;
-}
-
-.content{
-    max-width:1000px;
-    margin:auto;
-    padding:20px;
-}
-
-.card{
-    background:#222;
-    margin-bottom:15px;
-    padding:20px;
-    border-radius:12px;
-}
-
-.button{
-    display:inline-block;
-    background:#4CAF50;
-    color:white;
-    text-decoration:none;
-    padding:10px 20px;
-    border-radius:8px;
-}
-
+body{margin:0;background:#111;color:white;font-family:Arial,sans-serif;}
+.header{background:linear-gradient(180deg,#2f2f2f,#1c1c1c);padding:40px 20px;text-align:center;}
+.header h1{margin:0;font-size:42px;}
+.header p{color:#cfcfcf;}
+.container{max-width:1200px;margin:auto;padding:20px;}
+.nav{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-bottom:25px;}
+.btn{background:#57c84d;color:white;text-decoration:none;padding:12px 18px;border-radius:10px;font-weight:bold;}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:16px;}
+.card{background:#1d1d1d;border-radius:12px;padding:20px;box-shadow:0 0 10px rgba(0,0,0,.3);}
+.card h3{margin-top:0;}
+.open{display:inline-block;margin-top:10px;background:#57c84d;color:white;text-decoration:none;padding:10px 14px;border-radius:8px;}
+.coming{background:#555;}
 </style>
-
 </head>
-
 <body>
-
 <div class="header">
-    <h1>🔥 Campfire Event Guide</h1>
-    <p>Grow a Garden 2</p>
+<h1>🔥 Campfire Event Guide</h1>
+<p>Complete community guide for the Grow a Garden 2 Campfire Event</p>
 </div>
-
-<div class="content">
-
-<div class="card">
-    <h2>Introduction</h2>
-    <p>Overview of the Campfire Event.</p>
-    <a class="button" href="campfire-intro.html">Open</a>
+<div class="container">
+<div class="nav">
+<a class="btn" href="index.html">← All Guides</a>
+<a class="btn" href="https://gag2.miraheze.org/wiki/Main_Page">Wiki</a>
 </div>
-
-<div class="card">
-    <h2>Event Info</h2>
-    <p>General information about the event.</p>
-    <a class="button" href="#">Open</a>
+<div class="grid">
+<div class="card"><h3>Introduction</h3><p>Overview of the event.</p><a class="open" href="campfire-intro.html">Open</a></div>
+<div class="card"><h3>Event Info</h3><p>General event information.</p><a class="open coming">Coming Soon</a></div>
+<div class="card"><h3>Campfire Workshop</h3><p>Workshop information.</p><a class="open coming">Coming Soon</a></div>
+<div class="card"><h3>Bearnaby</h3><p>Bearnaby guide.</p><a class="open coming">Coming Soon</a></div>
+<div class="card"><h3>Campfire Keeper</h3><p>Campfire Keeper guide.</p><a class="open coming">Coming Soon</a></div>
+<div class="card"><h3>Plants</h3><p>Event plants.</p><a class="open coming">Coming Soon</a></div>
+<div class="card"><h3>Pets</h3><p>Event pets.</p><a class="open coming">Coming Soon</a></div>
+<div class="card"><h3>Gear</h3><p>Event gear.</p><a class="open coming">Coming Soon</a></div>
+<div class="card"><h3>Cosmetics</h3><p>Event cosmetics.</p><a class="open coming">Coming Soon</a></div>
+<div class="card"><h3>Mutations</h3><p>Event mutations.</p><a class="open coming">Coming Soon</a></div>
 </div>
-
-<div class="card">
-    <h2>Campfire Workshop</h2>
-    <p>Workshop information.</p>
-    <a class="button" href="#">Open</a>
 </div>
-
-<div class="card">
-    <h2>Bearnaby</h2>
-    <p>Bearnaby section.</p>
-    <a class="button" href="#">Open</a>
-</div>
-
-<div class="card">
-    <h2>Campfire Keeper</h2>
-    <p>Campfire Keeper section.</p>
-    <a class="button" href="#">Open</a>
-</div>
-
-<div class="card">
-    <h2>Plants</h2>
-    <p>Plants available during the event.</p>
-    <a class="button" href="#">Open</a>
-</div>
-
-<div class="card">
-    <h2>Pets</h2>
-    <p>Event pets.</p>
-    <a class="button" href="#">Open</a>
-</div>
-
-<div class="card">
-    <h2>Gear</h2>
-    <p>Event gear.</p>
-    <a class="button" href="#">Open</a>
-</div>
-
-<div class="card">
-    <h2>Cosmetics</h2>
-    <p>Event cosmetics.</p>
-    <a class="button" href="#">Open</a>
-</div>
-
-<div class="card">
-    <h2>Mutations</h2>
-    <p>Event mutations.</p>
-    <a class="button" href="#">Open</a>
-</div>
-
-<br>
-
-<a class="button" href="index.html">← Back to Home</a>
-
-</div>
-
 </body>
 </html>
