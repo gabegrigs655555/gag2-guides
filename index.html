@@ -3,584 +3,96 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Grow a Garden 2 — Guides</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
-<style>
-
-  /* ============ TOKENS ============ */
-  :root{
-    --soil-900:#1c3326;
-    --leaf-700:#1f7a4d;
-    --leaf-600:#2e9e63;
-    --leaf-500:#43b87a;
-    --sprout-400:#7adf9e;
-    --sun-400:#ffd24a;
-    --sun-300:#ffe48a;
-    --bloom-500:#ff8fab;
-    --cream-100:#fbf8ef;
-    --cream-50:#fffdf7;
-    --bark-700:#5b4632;
-    --ink-900:#16261d;
-
-    --font-display:'Baloo 2', sans-serif;
-    --font-body:'Nunito', sans-serif;
-
-    --radius-lg:28px;
-    --radius-md:18px;
-    --radius-sm:12px;
-
-    --shadow-card: 0 14px 30px -10px rgba(28,51,38,0.25);
-    --shadow-card-hover: 0 22px 40px -10px rgba(28,51,38,0.35);
-  }
-
-  *{ box-sizing:border-box; }
-  html{ scroll-behavior:smooth; }
-
-  body{
-    margin:0;
-    background:
-      radial-gradient(circle at 10% 0%, #eafaf0 0%, transparent 45%),
-      radial-gradient(circle at 90% 10%, #fff6d9 0%, transparent 40%),
-      var(--cream-100);
-    color:var(--ink-900);
-    font-family:var(--font-body);
-    overflow-x:hidden;
-    position:relative;
-  }
-
-  /* ============ FLOATING PARTICLES (leaves/petals) ============ */
-  .particle-field{
-    position:fixed;
-    inset:0;
-    pointer-events:none;
-    z-index:0;
-    overflow:hidden;
-  }
-  .particle{
-    position:absolute;
-    top:-60px;
-    opacity:0.55;
-    animation:fall linear infinite;
-    will-change: transform;
-  }
-  .particle svg{ width:100%; height:100%; display:block; }
-
-  @keyframes fall{
-    0%{ transform:translateY(-10vh) translateX(0) rotate(0deg); }
-    100%{ transform:translateY(110vh) translateX(var(--drift,40px)) rotate(360deg); }
-  }
-
-  @media (prefers-reduced-motion: reduce){
-    .particle{ animation:none; display:none; }
-    *{ animation-duration:0.001ms !important; animation-iteration-count:1 !important; transition-duration:0.001ms !important; }
-  }
-
-  /* ============ HEADER / HERO ============ */
-  .hero{
-    position:relative;
-    z-index:1;
-    padding:64px 20px 90px;
-    text-align:center;
-    overflow:hidden;
-  }
-
-  .hero-badge{
-    display:inline-flex;
-    align-items:center;
-    gap:8px;
-    background:var(--cream-50);
-    border:2px solid var(--sprout-400);
-    color:var(--leaf-700);
-    font-family:var(--font-body);
-    font-weight:800;
-    font-size:13px;
-    letter-spacing:0.06em;
-    text-transform:uppercase;
-    padding:8px 18px;
-    border-radius:999px;
-    box-shadow:var(--shadow-card);
-    opacity:0;
-    animation:pop-in 0.6s 0.1s cubic-bezier(.2,1.4,.4,1) forwards;
-  }
-
-  .hero h1{
-    font-family:var(--font-display);
-    font-weight:800;
-    font-size:clamp(40px, 8vw, 84px);
-    line-height:1.02;
-    margin:18px 0 6px;
-    color:var(--soil-900);
-    opacity:0;
-    animation:rise-in 0.7s 0.25s cubic-bezier(.2,1,.3,1) forwards;
-  }
-  .hero h1 .accent{
-    color:var(--leaf-600);
-    position:relative;
-    display:inline-block;
-  }
-
-  .hero p.tagline{
-    font-size:clamp(16px,2.4vw,20px);
-    color:#4a5d52;
-    max-width:560px;
-    margin:0 auto;
-    font-weight:600;
-    opacity:0;
-    animation:rise-in 0.7s 0.4s cubic-bezier(.2,1,.3,1) forwards;
-  }
-
-  @keyframes pop-in{
-    0%{ opacity:0; transform:translateY(-10px) scale(0.8); }
-    100%{ opacity:1; transform:translateY(0) scale(1); }
-  }
-  @keyframes rise-in{
-    0%{ opacity:0; transform:translateY(18px); }
-    100%{ opacity:1; transform:translateY(0); }
-  }
-
-  /* growing vine divider under hero */
-  .vine-wrap{
-    margin-top:34px;
-    height:46px;
-    display:flex;
-    justify-content:center;
-    opacity:0;
-    animation:rise-in 0.7s 0.55s forwards;
-  }
-  .vine-wrap svg{ width:min(520px,90%); }
-  .vine-path{
-    stroke-dasharray:600;
-    stroke-dashoffset:600;
-    animation:draw 1.6s 0.7s cubic-bezier(.3,.8,.4,1) forwards;
-  }
-  @keyframes draw{ to{ stroke-dashoffset:0; } }
-  .vine-leaf{
-    opacity:0;
-    transform-origin:center;
-    animation:leaf-pop 0.5s cubic-bezier(.2,1.6,.4,1) forwards;
-  }
-
-  /* ============ MAIN ============ */
-  main{
-    position:relative;
-    z-index:1;
-    max-width:1080px;
-    margin:0 auto;
-    padding:0 20px 100px;
-  }
-
-  .section-label{
-    font-family:var(--font-display);
-    font-weight:700;
-    font-size:14px;
-    letter-spacing:0.12em;
-    text-transform:uppercase;
-    color:var(--leaf-700);
-    margin:0 0 16px 4px;
-    display:flex;
-    align-items:center;
-    gap:10px;
-  }
-  .section-label::before{
-    content:'';
-    width:10px; height:10px;
-    background:var(--sun-400);
-    border-radius:50%;
-    box-shadow:0 0 0 4px rgba(255,210,74,0.25);
-  }
-
-  .grid{
-    display:grid;
-    grid-template-columns:repeat(auto-fit, minmax(290px, 1fr));
-    gap:24px;
-    margin-bottom:56px;
-  }
-
-  .card{
-    position:relative;
-    background:var(--cream-50);
-    border-radius:var(--radius-lg);
-    padding:26px 26px 24px;
-    box-shadow:var(--shadow-card);
-    border:1px solid rgba(31,122,77,0.08);
-    overflow:hidden;
-    opacity:0;
-    transform:translateY(24px);
-    transition:transform 0.35s cubic-bezier(.2,.9,.3,1), box-shadow 0.35s ease;
-  }
-  .card.in-view{ animation:card-rise 0.6s cubic-bezier(.2,1,.3,1) forwards; }
-  @keyframes card-rise{
-    to{ opacity:1; transform:translateY(0); }
-  }
-
-  .card::after{
-    content:'';
-    position:absolute;
-    right:-40px; top:-40px;
-    width:120px; height:120px;
-    background:radial-gradient(circle, rgba(122,223,158,0.35), transparent 70%);
-    border-radius:50%;
-    transition:transform 0.5s ease;
-  }
-  .card:hover{
-    transform:translateY(-6px);
-    box-shadow:var(--shadow-card-hover);
-  }
-  .card:hover::after{ transform:scale(1.4); }
-
-  .card .icon-burst{
-    font-size:34px;
-    display:inline-block;
-    margin-bottom:10px;
-    transition:transform 0.4s cubic-bezier(.3,1.8,.4,1);
-  }
-  .card:hover .icon-burst{
-    transform:scale(1.18) rotate(-6deg);
-  }
-
-  .card h2{
-    font-family:var(--font-display);
-    font-size:23px;
-    margin:0 0 8px;
-    color:var(--soil-900);
-    font-weight:700;
-  }
-  .card p{
-    margin:0 0 20px;
-    color:#5a6b60;
-    font-size:15px;
-    line-height:1.5;
-    font-weight:600;
-  }
-
-  .btn{
-    display:inline-flex;
-    align-items:center;
-    gap:8px;
-    background:var(--leaf-600);
-    color:white;
-    text-decoration:none;
-    font-family:var(--font-body);
-    font-weight:800;
-    font-size:15px;
-    padding:12px 22px;
-    border-radius:999px;
-    box-shadow:0 8px 18px -6px rgba(46,158,99,0.55);
-    transition:transform 0.25s cubic-bezier(.3,1.6,.4,1), background 0.25s, box-shadow 0.25s;
-    position:relative;
-  }
-  .btn:hover{
-    background:var(--leaf-700);
-    transform:translateY(-3px) scale(1.03);
-    box-shadow:0 12px 22px -6px rgba(31,122,77,0.6);
-  }
-  .btn:active{ transform:translateY(0) scale(0.98); }
-  .btn .arrow{ transition:transform 0.25s; }
-  .btn:hover .arrow{ transform:translateX(4px); }
-
-  .btn.wiki{ background:var(--bloom-500); box-shadow:0 8px 18px -6px rgba(255,143,171,0.55); }
-  .btn.wiki:hover{ background:#ff7196; box-shadow:0 12px 22px -6px rgba(255,113,150,0.6); }
-
-  .tag{
-    position:absolute;
-    top:18px; right:18px;
-    background:var(--sun-300);
-    color:#5a4400;
-    font-size:11px;
-    font-weight:800;
-    text-transform:uppercase;
-    letter-spacing:0.05em;
-    padding:5px 11px;
-    border-radius:999px;
-  }
-
-  /* ============ EMBED VIEWER ============ */
-  .viewer{
-    background:var(--cream-50);
-    border-radius:var(--radius-lg);
-    box-shadow:var(--shadow-card);
-    border:1px solid rgba(31,122,77,0.08);
-    padding:8px;
-    margin-bottom:56px;
-    opacity:0;
-    transform:translateY(24px);
-  }
-  .viewer.in-view{ animation:card-rise 0.6s cubic-bezier(.2,1,.3,1) forwards; }
-
-  .viewer-tabs{
-    display:flex;
-    gap:8px;
-    flex-wrap:wrap;
-    padding:14px 14px 0;
-  }
-  .viewer-tab{
-    font-family:var(--font-body);
-    font-weight:800;
-    font-size:14px;
-    color:#5a6b60;
-    background:transparent;
-    border:none;
-    padding:10px 18px;
-    border-radius:999px 999px 0 0;
-    cursor:pointer;
-    transition:background 0.25s, color 0.25s;
-  }
-  .viewer-tab:hover{ background:#eef7ee; color:var(--leaf-700); }
-  .viewer-tab.active{
-    background:var(--leaf-600);
-    color:white;
-  }
-
-  .viewer-frame-wrap{
-    border-radius:0 0 var(--radius-md) var(--radius-md);
-    overflow:hidden;
-    background:#f3f1e6;
-    position:relative;
-  }
-  .viewer-frame-wrap iframe{
-    width:100%;
-    height:640px;
-    border:none;
-    display:block;
-    /* crop the google sheets top bar/title using negative margin trick */
-    margin-top:-2px;
-  }
-  .viewer-frame-wrap .crop-mask{
-    position:absolute;
-    top:0; left:0; right:0;
-    height:0px;
-    background:var(--cream-50);
-    z-index:2;
-    pointer-events:none;
-  }
-
-  .viewer-frame-wrap .open-new{
-    position:absolute;
-    bottom:14px;
-    right:14px;
-    z-index:3;
-  }
-
-  .loading-sprout{
-    position:absolute;
-    inset:0;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    background:var(--cream-50);
-    z-index:1;
-    transition:opacity 0.4s ease;
-  }
-  .loading-sprout.hide{ opacity:0; pointer-events:none; }
-  .loading-sprout .sprout-icon{
-    font-size:38px;
-    animation:bob 1.1s ease-in-out infinite;
-  }
-  @keyframes bob{
-    0%,100%{ transform:translateY(0) scale(1); }
-    50%{ transform:translateY(-8px) scale(1.08); }
-  }
-
-  /* ============ FOOTER ============ */
-  footer{
-    position:relative;
-    z-index:1;
-    text-align:center;
-    padding:38px 20px 50px;
-    color:#6b7d72;
-    font-size:14px;
-    font-weight:700;
-  }
-  footer .footer-leaf{ font-size:18px; vertical-align:-2px; margin:0 6px; }
-
-  /* ============ RESPONSIVE ============ */
-  @media (max-width:600px){
-    .hero{ padding:48px 16px 70px; }
-    .viewer-frame-wrap iframe{ height:480px; }
-    .card{ padding:22px 20px; }
-  }
-
-  /* focus visibility */
-  a:focus-visible, button:focus-visible{
-    outline:3px solid var(--sun-400);
-    outline-offset:2px;
-  }
-</style>
+<title>Grow a Garden 2 Guides</title>
+<link rel="stylesheet" href="style.css">
 </head>
 <body>
-
-<div class="particle-field" id="particleField" aria-hidden="true"></div>
-
-<header class="hero">
-  <span class="hero-badge">🌿 Community Guides</span>
-  <h1>Grow a Garden <span class="accent">2</span></h1>
-  <p class="tagline">Everything you need to win every event — rewards, plants, pets, gear & mutations, all in one patch.</p>
-
-  <div class="vine-wrap" aria-hidden="true">
-    <svg viewBox="0 0 520 46" fill="none">
-      <path class="vine-path" d="M10 30 Q 80 0, 150 28 T 290 24 T 430 30 T 510 16" stroke="#43b87a" stroke-width="4" stroke-linecap="round"/>
-      <g class="vine-leaf" style="animation-delay:1.7s">
-        <circle cx="80" cy="13" r="9" fill="#7adf9e"/>
-      </g>
-      <g class="vine-leaf" style="animation-delay:1.9s">
-        <circle cx="220" cy="35" r="7" fill="#ffd24a"/>
-      </g>
-      <g class="vine-leaf" style="animation-delay:2.1s">
-        <circle cx="360" cy="12" r="8" fill="#ff8fab"/>
-      </g>
-      <g class="vine-leaf" style="animation-delay:2.3s">
-        <circle cx="470" cy="26" r="7" fill="#7adf9e"/>
-      </g>
-    </svg>
-  </div>
-</header>
-
-<main>
-  <p class="section-label">Event Guides</p>
-  <div class="grid" id="cardGrid">
-
-    <article class="card" data-target="campfire">
-      <span class="tag">Latest</span>
-      <span class="icon-burst">🔥</span>
-      <h2>Campfire Event</h2>
-      <p>Rewards, plants, pets, gear, mutations & cosmetics — the full Campfire Event breakdown.</p>
-      <a class="btn" href="#" data-open="campfire"><span>Open Guide</span><span class="arrow">→</span></a>
-    </article>
-
-    <article class="card" data-target="bizzybee">
-      <span class="icon-burst">🐝</span>
-      <h2>Bizzy Bee Event</h2>
-      <p>The complete Bizzy Bee Event guide — every reward and item, mapped out.</p>
-      <a class="btn" href="#" data-open="bizzybee"><span>Open Guide</span><span class="arrow">→</span></a>
-    </article>
-
-    <article class="card" data-target="easter">
-      <span class="icon-burst">🌸</span>
-      <h2>Easter Event</h2>
-      <p>Hop through the full Easter Event guide, from eggs to exclusive cosmetics.</p>
-      <a class="btn" href="#" data-open="easter"><span>Open Guide</span><span class="arrow">→</span></a>
-    </article>
-
-    <article class="card">
-      <span class="icon-burst">📖</span>
-      <h2>Official Wiki</h2>
-      <p>Dig deeper into every mechanic, item, and update on the Grow a Garden 2 Wiki.</p>
-      <a class="btn wiki" href="https://gag2.miraheze.org" target="_blank" rel="noopener"><span>Visit Wiki</span><span class="arrow">→</span></a>
-    </article>
-
-  </div>
-
-  <p class="section-label" id="viewerLabel">Campfire Event Guide</p>
-  <div class="viewer" id="viewerCard">
-    <div class="viewer-tabs">
-      <button class="viewer-tab active" data-sheet="campfire">🔥 Campfire</button>
-      <button class="viewer-tab" data-sheet="bizzybee">🐝 Bizzy Bee</button>
-      <button class="viewer-tab" data-sheet="easter">🌸 Easter</button>
-    </div>
-    <div class="viewer-frame-wrap" id="frameWrap">
-      <div class="loading-sprout" id="loadingSprout"><span class="sprout-icon">🌱</span></div>
-      <iframe id="sheetFrame"
-        src="https://docs.google.com/spreadsheets/d/e/2PACX-1vQG1fJFXp8KbtKGKH-H0Tw8I2Ox7OCpXrnfz6XwngPd5a1V9I4j0BCK_Mg35SdsEXzHE1SdP4UlBCo8/pubhtml?widget=true&amp;headers=false&amp;chrome=false"
-        title="Campfire Event Gag Guide"
-        loading="lazy"></iframe>
-      <a class="btn open-new" id="openNewTab" href="https://docs.google.com/spreadsheets/d/e/2PACX-1vQG1fJFXp8KbtKGKH-H0Tw8I2Ox7OCpXrnfz6XwngPd5a1V9I4j0BCK_Mg35SdsEXzHE1SdP4UlBCo8/pubhtml" target="_blank" rel="noopener">
-        <span>Full screen</span><span class="arrow">↗</span>
+<div class="site-wrap">
+  <header class="topbar">
+    <div class="topbar-inner">
+      <a class="brand" href="index.html">
+        <span class="brand-mark">GAG</span>
+        <span>Grow a Garden 2 Guides</span>
       </a>
+      <nav class="top-links" aria-label="Main links">
+        <a class="top-link" href="campfire.html">Campfire</a>
+        <a class="top-link" href="bizzybee.html">Bizzy Bee</a>
+        <a class="top-link" href="easter.html">Easter</a>
+        <a class="top-link" href="https://gag2.miraheze.org/wiki/Main_Page">Wiki</a>
+      </nav>
     </div>
-  </div>
-</main>
+  </header>
 
-<footer>
-  <span class="footer-leaf">🌿</span> Grow a Garden 2 Guides — made by the community, for the community <span class="footer-leaf">🌿</span>
-</footer>
+  <section class="hero">
+    <div class="hero-panel wiki-panel">
+      <div class="hero-copy">
+        <span class="eyebrow">Community Event Guides</span>
+        <h1>Grow a Garden 2 Guides</h1>
+        <p class="lead">Fast event guides made for players who want the important stuff first: rewards, plants, pets, gear, cosmetics, mutations, and update details.</p>
+        <div class="hero-actions">
+          <a class="button" href="campfire.html">Open Latest Guide</a>
+          <a class="button secondary" href="https://gag2.miraheze.org/wiki/Main_Page">Visit Wiki</a>
+        </div>
+      </div>
+      <div class="hero-art">
+        <img src="0.png" alt="Campfire Event guide preview" loading="eager">
+      </div>
+    </div>
+  </section>
 
-<script>
-  // ---- Sheet URLs per guide (REPLACE bizzybee/easter with their real published links) ----
-  const SHEET_URLS = {
-    campfire: {
-      embed: "https://docs.google.com/spreadsheets/d/e/2PACX-1vQG1fJFXp8KbtKGKH-H0Tw8I2Ox7OCpXrnfz6XwngPd5a1V9I4j0BCK_Mg35SdsEXzHE1SdP4UlBCo8/pubhtml?widget=true&headers=false&chrome=false",
-      full:  "https://docs.google.com/spreadsheets/d/e/2PACX-1vQG1fJFXp8KbtKGKH-H0Tw8I2Ox7OCpXrnfz6XwngPd5a1V9I4j0BCK_Mg35SdsEXzHE1SdP4UlBCo8/pubhtml",
-      title: "Campfire Event Guide"
-    },
-    bizzybee: {
-      embed: "https://docs.google.com/spreadsheets/d/e/2PACX-1vSUjZtIbSR3KLx0V17iMm4TiRLfTn6MMaNNfkjUi46J-Gwusb7DpCBoMZ2mJ2wig_hFhsuHY2oKGyme/pubhtml?widget=true&amp;headers=false",
-      full:  "https://docs.google.com/spreadsheets/d/e/2PACX-1vSUjZtIbSR3KLx0V17iMm4TiRLfTn6MMaNNfkjUi46J-Gwusb7DpCBoMZ2mJ2wig_hFhsuHY2oKGyme/pubhtml",
-      title: "Bizzy Bee Event Guide"
-    },
-    easter: {
-      embed: "https://docs.google.com/spreadsheets/d/e/2PACX-1vRn0W8jyE4bpFEvWn15wNEwlSTBwlsPvJ6mZ1xrSe9fVfgmD57EGBOa4GHmRMEsfWqXaP2VQe7naaF7/pubhtml?widget=true&amp;headers=false",
-      full:  "https://docs.google.com/spreadsheets/d/e/2PACX-1vRn0W8jyE4bpFEvWn15wNEwlSTBwlsPvJ6mZ1xrSe9fVfgmD57EGBOa4GHmRMEsfWqXaP2VQe7naaF7/pubhtml",
-      title: "Easter Event Guide"
-    }
-  };
+  <main class="content">
+    <div class="section-title">Event Guide Library</div>
 
-  const frame = document.getElementById('sheetFrame');
-  const openNewTab = document.getElementById('openNewTab');
-  const loadingSprout = document.getElementById('loadingSprout');
-  const viewerLabel = document.getElementById('viewerLabel');
-  const tabs = document.querySelectorAll('.viewer-tab');
-  const viewerCard = document.getElementById('viewerCard');
+    <section class="guide-grid" aria-label="Event guides">
+      <article class="card wiki-panel">
+        <div class="badge-row">
+          <span class="badge green">Latest</span>
+          <span class="badge">Image Guide</span>
+        </div>
+        <img class="card-image" src="0.png" alt="Campfire Event guide preview" loading="lazy">
+        <h2>Campfire Event</h2>
+        <p>Complete Campfire Event guide with the intro, event info, workshop, Bearnaby, Campfire Keeper, plants, pets, gear, cosmetics, and mutations.</p>
+        <div class="card-actions">
+          <a class="button full" href="campfire.html">Open Campfire Guide</a>
+        </div>
+      </article>
 
-  function loadSheet(key){
-    const data = SHEET_URLS[key];
-    if(!data) return;
-    loadingSprout.classList.remove('hide');
-    frame.src = data.embed;
-    openNewTab.href = data.full;
-    viewerLabel.textContent = data.title;
-    tabs.forEach(t => t.classList.toggle('active', t.dataset.sheet === key));
-    viewerCard.scrollIntoView({behavior:'smooth', block:'start'});
-  }
+      <article class="card wiki-panel">
+        <div class="badge-row">
+          <span class="badge">Past Event</span>
+          <span class="badge">Guide Archive</span>
+        </div>
+        <div class="card-image placeholder">BIZZY BEE</div>
+        <h2>Bizzy Bee Event</h2>
+        <p>Past event guide for Bizzy Bee. This page keeps the guide available while the old event archive gets converted into the same image-page format.</p>
+        <div class="card-actions">
+          <a class="button full" href="bizzybee.html">Open Bizzy Bee Guide</a>
+        </div>
+      </article>
 
-  frame.addEventListener('load', () => loadingSprout.classList.add('hide'));
+      <article class="card wiki-panel">
+        <div class="badge-row">
+          <span class="badge">Past Event</span>
+          <span class="badge">Guide Archive</span>
+        </div>
+        <div class="card-image placeholder">EASTER</div>
+        <h2>Easter Event</h2>
+        <p>Past event guide for Easter 2026. It stays in the guide library so all three major guides are reachable from the homepage.</p>
+        <div class="card-actions">
+          <a class="button full" href="easter.html">Open Easter Guide</a>
+        </div>
+      </article>
+    </section>
 
-  tabs.forEach(tab => {
-    tab.addEventListener('click', () => loadSheet(tab.dataset.sheet));
-  });
+    <section class="notice wiki-panel">
+      <h2>About This Site</h2>
+      <p>This homepage now works like a guide index instead of embedding a spreadsheet. Each event has its own page, and the Campfire guide uses the uploaded image pages so it stays sharp and easy to browse.</p>
+    </section>
+  </main>
 
-  document.querySelectorAll('[data-open]').forEach(btn => {
-    btn.addEventListener('click', (e) => {
-      e.preventDefault();
-      loadSheet(btn.dataset.open);
-    });
-  });
-
-  // ---- Reveal cards/viewer on scroll ----
-  const revealEls = document.querySelectorAll('.card, .viewer');
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach((entry, i) => {
-      if(entry.isIntersecting){
-        setTimeout(() => entry.target.classList.add('in-view'), i * 70);
-        observer.unobserve(entry.target);
-      }
-    });
-  }, { threshold: 0.15 });
-  revealEls.forEach(el => observer.observe(el));
-
-  // ---- Floating leaf/petal particles ----
-  const field = document.getElementById('particleField');
-  const shapes = [
-    `<svg viewBox="0 0 24 24"><path d="M12 2C7 6 4 10 4 14a8 8 0 0016 0c0-4-3-8-8-12z" fill="#43b87a"/></svg>`,
-    `<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="6" fill="#ffd24a"/></svg>`,
-    `<svg viewBox="0 0 24 24"><path d="M12 2C9 6 9 10 12 14c3-4 3-8 0-12z" fill="#ff8fab"/></svg>`
-  ];
-  const COUNT = window.innerWidth < 600 ? 8 : 14;
-  for(let i=0;i<COUNT;i++){
-    const p = document.createElement('div');
-    p.className = 'particle';
-    const size = 14 + Math.random()*16;
-    p.style.width = size+'px';
-    p.style.height = size+'px';
-    p.style.left = (Math.random()*100)+'vw';
-    p.style.setProperty('--drift', (Math.random()*120-60)+'px');
-    p.style.animationDuration = (14 + Math.random()*12)+'s';
-    p.style.animationDelay = (Math.random()*-20)+'s';
-    p.innerHTML = shapes[Math.floor(Math.random()*shapes.length)];
-    field.appendChild(p);
-  }
-</script>
-
+  <footer>
+    <div class="footer-inner">Made for the Grow a Garden 2 community.</div>
+  </footer>
+</div>
 </body>
 </html>
