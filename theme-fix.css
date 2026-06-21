@@ -1,0 +1,28 @@
+.wiki-box,
+.wiki-panel,
+.article-body {
+  background-color: var(--gag-brown-dark);
+}
+
+.top-link,
+.button,
+.side-link {
+  background: #4f260f;
+}
+
+.nav-card,
+.card {
+  background: #4b2817;
+}
+
+.card-image.placeholder,
+.nav-thumb,
+.card-image {
+  background-color: var(--gag-brown-soft);
+}
+
+.title-logo,
+.wiki-box::before,
+.wiki-panel::before {
+  background: var(--gag-brown-panel);
+}
