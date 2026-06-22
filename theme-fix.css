@@ -117,8 +117,8 @@ body {
 }
 
 .guide-image + .guide-image {
-  margin-top: -2px;
-  clip-path: inset(1px 0 0 0);
+  margin-top: -1px;
+  clip-path: none;
 }
 
 body.has-reading-nav .site-wrap {
