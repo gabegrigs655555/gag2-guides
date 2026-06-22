@@ -3,8 +3,9 @@
 This folder is the organized home for shared site assets.
 
 - `css/site.css` is the public stylesheet entrypoint used by the HTML pages.
-- `images/logos/` contains the reusable small navbar logo.
-- The home page title uses the root upload `Grow a Garden Title.png`.
-- The active Campfire guide logo uses the root upload `Campfire Event Guide Title.png`.
-- Root-level guide screenshots (`0.png` through `34.png`) are kept at the repository root because the live reader pages depend on those stable URLs.
+- `images/logos/` contains reusable logo and navbar assets.
+- `images/guide-pages/` is the intended home for repaired Campfire guide page images.
+- `images/textures/` is the intended home for reusable wiki-style textures.
 - Public pages live in folders: `guides/campfire/` for the Campfire guide sections and `about/` for the info pages.
+
+The old root-level numbered PNGs are legacy uploads that the current live guide still references. New or repaired guide screenshots should go in `assets/images/guide-pages/` and then the section pages should be repointed there.
