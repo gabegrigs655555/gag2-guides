@@ -153,6 +153,15 @@ body {
   clip-path: inset(2px 0 0 0);
 }
 
+body.no-page-overlap .guide-image {
+  margin: 0 auto;
+}
+
+body.no-page-overlap .guide-image + .guide-image {
+  margin-top: 0;
+  clip-path: none;
+}
+
 body.has-reading-nav .site-wrap {
   padding-bottom: 100px;
 }
