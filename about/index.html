@@ -6,6 +6,11 @@
 <link rel="icon" type="image/png" href="/GagLogo.png?v=20260623-2">
 <link rel="shortcut icon" type="image/png" href="/GagLogo.png?v=20260623-2">
 <link rel="apple-touch-icon" href="/GagLogo.png?v=20260623-2">
+<script>
+if (location.pathname.endsWith('/index.html')) {
+  history.replaceState(null, '', location.pathname.replace(/index\.html$/, '') + location.search + location.hash);
+}
+</script>
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4775227057339722" crossorigin="anonymous"></script>
 <title>About Grow a Garden Guides</title>
 <link rel="stylesheet" href="../assets/css/site.css?v=20260623-2">
@@ -20,16 +25,16 @@
         <nav class="top-links" aria-label="About navigation">
           <a class="top-link" href="../">All Guides</a>
           <a class="top-link" href="../guides/campfire/">Campfire</a>
-          <a class="top-link" href="../contact.html">Contact</a>
-          <a class="top-link" href="../privacy.html">Privacy</a>
+          <a class="top-link" href="../contact/">Contact</a>
+          <a class="top-link" href="../privacy/">Privacy</a>
         </nav>
       </details>
     </div>
   </header>
 
-  <main class="article-shell about-page">
+  <main class="article-shell about-page trust-page">
     <section class="about-section wiki-panel">
-      <h2>About Grow a Garden Guides</h2>
+      <h1 class="trust-title">About Grow a Garden Guides</h1>
       <p>Grow a Garden Guides is a community guide hub for Grow a Garden event information. It collects event pages, rewards, pets, gear, cosmetics, mutations, and other useful details in one place.</p>
       <p>The site currently focuses on the Campfire Event guide. Future event guides can be added here as they release.</p>
     </section>
@@ -37,7 +42,6 @@
     <section class="about-section wiki-panel">
       <h2>Our Goal</h2>
       <p>This site exists to preserve Grow a Garden event guide information in a clear and organized format.</p>
-      <p>We try to:</p>
       <ul>
         <li>Keep the current Campfire Event guide easy to find.</li>
         <li>Use the original guide images whenever possible.</li>
@@ -50,9 +54,9 @@
     <section class="about-section wiki-panel">
       <h2>Editing</h2>
       <p>Page updates are handled manually so the guide stays organized and the information can be checked before it appears on the site.</p>
-      <p>If you want to contribute information, report a mistake, provide images, or suggest a new section, use the Contact us link to reach the site owner on Discord.</p>
+      <p>If you want to contribute information, report a mistake, provide images, or suggest a new section, use the Contact page to reach the site owner on Discord.</p>
       <div class="article-actions">
-        <a class="button" href="https://discord.com/users/1136302206618980364" target="_blank" rel="noopener noreferrer">Contact us</a>
+        <a class="button" href="../contact/">Contact us</a>
       </div>
     </section>
 
@@ -89,7 +93,7 @@
   </main>
 
   <footer>
-    <div class="footer-inner">Guide hub for the Grow a Garden community.<nav class="footer-links"><a href="../about.html">About</a><a href="../contact.html">Contact</a><a href="../privacy.html">Privacy</a></nav></div>
+    <div class="footer-inner">Guide hub for the Grow a Garden community.<nav class="footer-links"><a href="../about/">About</a><a href="../contact/">Contact</a><a href="../privacy/">Privacy</a></nav></div>
   </footer>
 </div>
 </body>
