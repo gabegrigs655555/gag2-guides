@@ -99,6 +99,36 @@ body {
   font-weight: 900;
 }
 
+.trust-title {
+  position: relative;
+  z-index: 1;
+  margin: 0 0 10px;
+  color: var(--gag-white);
+  font-size: clamp(30px, 6vw, 44px);
+  font-weight: 1000;
+  line-height: 1;
+  text-shadow: 0 3px 0 #000;
+}
+
+.trust-page a:not(.button):not(.top-link) {
+  color: #ffd27c;
+  font-weight: 900;
+}
+
+.footer-links {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-top: 8px;
+}
+
+.footer-links a {
+  color: #efd6b9;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
 .article-body {
   line-height: 0;
   overflow: hidden;
